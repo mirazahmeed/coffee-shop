@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const UpdateCoffee = () => {
-  return (
-    <div>UpdateCoffee</div>
-  )
-}
+	return <div>UpdateCoffee</div>;
+};
 
-export default UpdateCoffee
+export default UpdateCoffee;
