@@ -1,6 +1,6 @@
 import React from "react";
 
-const AddCoffee = () => {
+const AddCoffee = ({ coffees, setCoffees }) => {
 	const handleAddCoffee = (e) => {
 		e.preventDefault();
 		const form = e.target;
@@ -19,6 +19,7 @@ const AddCoffee = () => {
 			.then((data) => {
 				console.log("after adding data to db", data);
 			});
+			setCoffees([...coffees, newCoffee]);
 		// .catch((err) => console.log(err));
 	};
 
