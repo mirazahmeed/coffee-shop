@@ -1,16 +1,18 @@
 import React, { use } from "react";
 import AuthContext from "../Contexts/AuthContext";
 
-const singUp = () => {
+const singUp = ({ createUser }) => {
+	const userInfo = use(AuthContext);
+	console.log(userInfo);
 
-    const userInfo = use(AuthContext);
-    console.log(userInfo);
-    
-
-
-    const handleSignUp = (e) => {
-        e.preventDefault();
-    }
+	const handleSignUp = (e) => {
+		e.preventDefault();
+		const form = e.target;
+		const formData = new FormData(form);
+		const email = formData.get("email");
+		const password = formData.get("password");
+		createUser(email, password);
+	};
 	return (
 		<div>
 			<div className="hero bg-base-200 min-h-screen">
@@ -31,12 +33,14 @@ const singUp = () => {
 									type="email"
 									className="input"
 									placeholder="Email"
+									name="email"
 								/>
 								<label className="label">Password</label>
 								<input
 									type="password"
 									className="input"
 									placeholder="Password"
+									name="password"
 								/>
 								<div>
 									<a className="link link-hover">
