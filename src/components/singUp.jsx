@@ -1,6 +1,13 @@
-import React from "react";
+import React, { use } from "react";
+import AuthContext from "../Contexts/AuthContext";
 
 const singUp = () => {
+
+    const userInfo = use(AuthContext);
+    console.log(userInfo);
+    
+
+
     const handleSignUp = (e) => {
         e.preventDefault();
     }
