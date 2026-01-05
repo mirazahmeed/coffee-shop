@@ -1,9 +1,8 @@
 import React, { use } from "react";
 import AuthContext from "../Contexts/AuthContext";
 
-const singUp = ({ createUser }) => {
-	const userInfo = use(AuthContext);
-	console.log(userInfo);
+const singUp = () => {
+	const { createUser } = use(AuthContext);
 
 	const handleSignUp = (e) => {
 		e.preventDefault();
@@ -11,7 +10,17 @@ const singUp = ({ createUser }) => {
 		const formData = new FormData(form);
 		const email = formData.get("email");
 		const password = formData.get("password");
-		createUser(email, password);
+		createUser(email, password)
+			.then((userCredential) => {
+				// Signed up
+				const user = userCredential.user;
+				console.log(user);
+			})
+			.catch((error) => {
+				const errorCode = error.code;
+				const errorMessage = error.message;
+				console.log(errorCode, errorMessage);
+			});
 	};
 	return (
 		<div>
@@ -28,20 +37,66 @@ const singUp = ({ createUser }) => {
 					<div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
 						<div className="card-body">
 							<form onSubmit={handleSignUp} className="fieldset">
+								<label className="label">Name</label>
+								<input
+									type="name"
+									className="input"
+									placeholder="Name"
+									name="name"
+									defaultValue="miraz"
+								/>
+								<label className="label">Phone</label>
+								<input
+									type="phone"
+									className="input"
+									placeholder="Phone"
+									name="phone"
+									defaultValue="0123456789"
+								/>
+								<label className="label">Photo URL</label>
+								<input
+									type="photo"
+									className="input"
+									placeholder="Photo URL"
+									name="photo"
+									defaultValue="https://images.unsplash.com/photo-1602992708529-c9fdb12905c9?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+								/>
+								<label className="label">Address</label>
+								<input
+									type="address"
+									className="input"
+									placeholder="Address"
+									name="address"
+									defaultValue="554, Shahchhino Ara, JP"
+								/>
 								<label className="label">Email</label>
 								<input
 									type="email"
 									className="input"
 									placeholder="Email"
 									name="email"
+									defaultValue="miraz07ahmed@gmail.com"
 								/>
 								<label className="label">Password</label>
 								<input
 									type="password"
-									className="input"
+									className="input validator"
+									required
 									placeholder="Password"
-									name="password"
+									minLength="8"
+									pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+									title="Must be more than 8 characters, including number, lowercase letter, uppercase letter"
+									defaultValue="Mm12345678*#"
 								/>
+								<p className="validator-hint">
+									Must be more than 8 characters, including
+									<br />
+									At least one number
+									<br />
+									At least one lowercase letter
+									<br />
+									At least one uppercase letter
+								</p>
 								<div>
 									<a className="link link-hover">
 										Forgot password?
