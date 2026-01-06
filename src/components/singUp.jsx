@@ -1,5 +1,6 @@
 import React, { use } from "react";
 import AuthContext from "../Contexts/AuthContext";
+import Swal from "sweetalert2";
 
 const singUp = () => {
 	const { createUser } = use(AuthContext);
@@ -8,18 +9,49 @@ const singUp = () => {
 		e.preventDefault();
 		const form = e.target;
 		const formData = new FormData(form);
-		const email = formData.get("email");
-		const password = formData.get("password");
+		// const email = formData.get("email");
+		// const password = formData.get("password");
+
+		const { email, password, ...rest } = Object.fromEntries(
+			formData.entries()
+		);
+
 		createUser(email, password)
 			.then((userCredential) => {
 				// Signed up
 				const user = userCredential.user;
-				console.log(user);
+
+				const userProfile = {
+					email,
+					...rest,
+					creationTime: user?.metadata?.creationTime,
+					lastSignInTime: user?.metadata?.lastSignInTime,
+				};
+
+				// save profileinfo in the db
+				fetch("http://localhost:3000/users", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify(userProfile),
+				})
+					.then((res) => res.json())
+					.then((data) => {
+						if (data.insertedId) {
+							Swal.fire({
+								position: "top-end",
+								icon: "success",
+								title: "User created successfully",
+								showConfirmButton: false,
+								timer: 1500,
+							});
+						}
+					});
 			})
 			.catch((error) => {
-				const errorCode = error.code;
 				const errorMessage = error.message;
-				console.log(errorCode, errorMessage);
+				console.log(errorMessage);
 			});
 	};
 	return (
@@ -84,6 +116,7 @@ const singUp = () => {
 									required
 									placeholder="Password"
 									minLength="8"
+									name="password"
 									pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
 									title="Must be more than 8 characters, including number, lowercase letter, uppercase letter"
 									defaultValue="Mm12345678*#"
