@@ -17,10 +17,23 @@ const Users = () => {
 			confirmButtonText: "Yes, delete it!",
 		}).then((result) => {
 			if (result.isConfirmed) {
-
-                
-
-				// Swal.fire("Deleted!", "Your file has been deleted.", "success");
+				fetch(`http://localhost:3000/users/${id}`, {
+					method: "DELETE",
+				})
+					.then((res) => res.json())
+					.then((data) => {
+						if (data.deletedCount > 0) {
+							Swal.fire(
+								"Deleted!",
+								"Your file has been deleted.",
+								"success"
+							);
+							const remaining = users.filter(
+								(user) => user._id !== id
+							);
+							setUsers(remaining);
+						}
+					});
 			}
 		});
 	};
@@ -41,8 +54,8 @@ const Users = () => {
 								<th></th>
 							</tr>
 						</thead>
-						{users.map((user, index) => (
-							<tbody>
+						<tbody>
+							{users.map((user, index) => (
 								<tr key={user._id}>
 									<th>{index + 1}</th>
 									<td>
@@ -68,23 +81,23 @@ const Users = () => {
 									<td>{user.phone}</td>
 									<td>{user.address}</td>
 									<th className="flex gap-2">
-										<button
-											className="btn btn-ghost btn-xs"
-											onClick={() =>
-												handleDeleteUser(user._id)
-											}>
+										<button className="btn btn-ghost btn-xs">
 											Details
 										</button>
 										<button className="btn btn-ghost btn-xs">
 											Edit
 										</button>
-										<button className="btn btn-ghost btn-xs">
+										<button
+											onClick={() =>
+												handleDeleteUser(user._id)
+											}
+											className="btn btn-ghost btn-xs">
 											Delete
 										</button>
 									</th>
 								</tr>
-							</tbody>
-						))}
+							))}
+						</tbody>
 					</table>
 				</div>
 			</div>
