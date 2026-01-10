@@ -136,7 +136,7 @@ const singUp = () => {
 									</a>
 								</div>
 								<button className="btn btn-neutral mt-4">
-									Login
+									Sign Up
 								</button>
 							</form>
 						</div>
