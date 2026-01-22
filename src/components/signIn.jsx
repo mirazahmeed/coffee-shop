@@ -41,6 +41,7 @@ const signIn = () => {
 									type="email"
 									name="email"
 									className="input"
+									defaultValue="miraz07ahmed@gmail.com"
 									placeholder="Email"
 								/>
 								<label className="label">Password</label>
@@ -48,6 +49,7 @@ const signIn = () => {
 									type="password"
 									name="password"
 									className="input"
+									defaultValue="Mm12345678*#"
 									placeholder="Password"
 								/>
 								<div>
