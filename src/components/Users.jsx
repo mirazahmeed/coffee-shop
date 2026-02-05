@@ -17,7 +17,7 @@ const Users = () => {
 			confirmButtonText: "Yes, delete it!",
 		}).then((result) => {
 			if (result.isConfirmed) {
-				fetch(`http://localhost:3000/users/${id}`, {
+				fetch(`https://server-coffee-shop-pi.vercel.app/users/${id}`, {
 					method: "DELETE",
 				})
 					.then((res) => res.json())
@@ -26,10 +26,10 @@ const Users = () => {
 							Swal.fire(
 								"Deleted!",
 								"Your file has been deleted.",
-								"success"
+								"success",
 							);
 							const remaining = users.filter(
-								(user) => user._id !== id
+								(user) => user._id !== id,
 							);
 							setUsers(remaining);
 						}

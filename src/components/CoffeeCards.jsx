@@ -20,9 +20,12 @@ const CoffeeCards = ({ coffee, coffees, setCoffees }) => {
 			console.log(result.isConfirmed);
 			if (result.isConfirmed) {
 				// start deleting the coffee
-				fetch(`http://localhost:3000/coffees/${_id}`, {
-					method: "DELETE",
-				})
+				fetch(
+					`https://server-coffee-shop-pi.vercel.app/coffees/${_id}`,
+					{
+						method: "DELETE",
+					},
+				)
 					.then((res) => res.json())
 					.then((data) => {
 						if (data.deletedCount > 0) {
@@ -33,7 +36,7 @@ const CoffeeCards = ({ coffee, coffees, setCoffees }) => {
 							});
 							// remove the deleted coffee from the coffees array
 							const reaminingCoffees = coffees.filter(
-								(cof) => cof._id !== _id
+								(cof) => cof._id !== _id,
 							);
 							setCoffees(reaminingCoffees);
 						}

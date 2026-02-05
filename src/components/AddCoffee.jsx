@@ -8,7 +8,7 @@ const AddCoffee = ({ coffees, setCoffees }) => {
 		const newCoffee = Object.fromEntries(formData.entries());
 		console.log(newCoffee);
 
-		fetch("http://localhost:3000/coffees", {
+		fetch("https://server-coffee-shop-pi.vercel.app/coffees", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -19,7 +19,7 @@ const AddCoffee = ({ coffees, setCoffees }) => {
 			.then((data) => {
 				console.log("after adding data to db", data);
 			});
-			setCoffees([...coffees, newCoffee]);
+		setCoffees([...coffees, newCoffee]);
 		// .catch((err) => console.log(err));
 	};
 

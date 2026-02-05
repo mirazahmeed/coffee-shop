@@ -19,7 +19,7 @@ const signIn = () => {
 					email: email,
 					lastSignInTime: user?.metadata?.lastSignInTime,
 				};
-				fetch("http://localhost:3000/users", {
+				fetch("https://server-coffee-shop-pi.vercel.app/users", {
 					method: "PATCH",
 					headers: {
 						"Content-Type": "application/json",
@@ -27,7 +27,9 @@ const signIn = () => {
 					body: JSON.stringify(signInInfo),
 				})
 					.then((res) => res.json())
-					.then((data) => console.log("User after update login", data));
+					.then((data) =>
+						console.log("User after update login", data),
+					);
 			})
 			.catch((error) => {
 				const errorMessage = error.message;

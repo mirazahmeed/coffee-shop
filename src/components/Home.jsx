@@ -10,7 +10,7 @@ const Home = () => {
 		e.preventDefault();
 		const search = e.target.search.value;
 		const filteredCoffees = initialCoffees.filter((coffee) =>
-			coffee.name.toLowerCase().includes(search.toLowerCase())
+			coffee.name.toLowerCase().includes(search.toLowerCase()),
 		);
 		setCoffees(filteredCoffees);
 		e.target.reset();

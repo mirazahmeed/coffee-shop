@@ -13,7 +13,7 @@ const singUp = () => {
 		// const password = formData.get("password");
 
 		const { email, password, ...rest } = Object.fromEntries(
-			formData.entries()
+			formData.entries(),
 		);
 
 		createUser(email, password)
@@ -29,7 +29,7 @@ const singUp = () => {
 				};
 
 				// save profileinfo in the db
-				fetch("http://localhost:3000/users", {
+				fetch("https://server-coffee-shop-pi.vercel.app/users", {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",
